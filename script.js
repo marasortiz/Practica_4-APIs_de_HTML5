@@ -1,4 +1,4 @@
-//Se debe testear si el navegador admite todo lo que necesitamos
+
 if (window.File && window.FileReader && window.FileList && window.Blob) {
 	function handleFileSelect(evt) {
 		let file = evt.target.files[0];
@@ -28,7 +28,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 				loadingMessage.id = "loading";
 				loadingMessage.className = "loading-message";
-				loadingMessage.innerHTML = 'El video está cargando';
+				loadingMessage.innerHTML = 'Espera. El vídeo esta todavía cargando';
 
 				document.getElementById('video-output').insertBefore(loadingMessage, null);
 
@@ -46,11 +46,11 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 				})
 
 				volumeUp.addEventListener('click', () => {
-					document.getElementById('video').volume += 0.1;
+					document.getElementById('video').volume = Math.min(1, video.volume + 0.1);
 				})
 
 				volumeDown.addEventListener('click', () => {
-					document.getElementById('video').volume -= 0.1;
+					document.getElementById('video').volume = Math.min(1, video.volume - 0.1);
 				})
 
 				document.getElementById('video').addEventListener('canplay', () => {
@@ -71,7 +71,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 		reader.readAsDataURL(file);
 	}
 
-	document.getElementById('file').addEventListener('change', handleFileSelect, false);
+document.getElementById('file').addEventListener('change', handleFileSelect, false);
 } else {
 	alert('File APIs no están soportadas por este navegador.')
 }
